@@ -30,11 +30,16 @@ This repository contains a Python script for generating QR codes with personal d
 8. The generated QR code will be displayed on the interface, and a success message will be shown.
 
 ## Call for Contributions:
-- **Optimization of Code Structure:**
-  - Contributors are welcome to optimize the code structure for better readability, maintainability, and performance. This could involve:
-    - Refactoring code into smaller, reusable functions or classes.
-    - Implementing design patterns to improve code organization.
-    - Identifying and removing redundant or inefficient code blocks.
+- **Enhanced UI/UX:**
+  - Contributors are encouraged to revamp the user interface to make it more visually appealing and user-friendly. This could involve:
+    - Implementing modern design principles such as Material Design or Fluent Design.
+    - Adding graphical elements, icons, and animations to enhance the overall look and feel.
+    - Improving the layout and organization of elements for better usability.
+- **Additional Features:**
+  - Contributions to add new features to the QR code generator are welcomed. Some potential ideas include:
+    - Batch QR code generation to process multiple sets of personal details at once.
+    - Integration with cloud storage services to automatically upload generated QR codes.
+    - Support for different QR code formats and customization options such as color and logo embedding.
 - **Input Validation and Error Handling:**
   - Contributions aimed at enhancing input validation and error handling mechanisms are valuable. This includes:
     - Implementing robust input validation to ensure data integrity.
