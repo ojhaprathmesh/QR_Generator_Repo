@@ -19,14 +19,15 @@ This repository contains a Python script for generating QR codes with personal d
 ## How to Use
 1. Clone the repository to your local machine.
 2. Install the required dependencies using the following command:
+
     ```
-    pip install qrcode Pillow resizeimage
+    pip install -r requirements.txt
     ```
-3. Run the script `qr_generator.py` to launch the application.
-4. Enter the required personal details in the provided fields.
-5. Specify the save location for the generated QR codes.
-6. Click the "Generate" button to create the QR code.
-7. The generated QR code will be displayed on the interface, and a success message will be shown.
+4. Run the script `qr_generator.py` to launch the application.
+5. Enter the required personal details in the provided fields.
+6. Specify the save location for the generated QR codes.
+7. Click the "Generate" button to create the QR code.
+8. The generated QR code will be displayed on the interface, and a success message will be shown.
 
 ## Notes
 - Make sure to provide valid and complete information in the input fields to generate QR codes successfully.
