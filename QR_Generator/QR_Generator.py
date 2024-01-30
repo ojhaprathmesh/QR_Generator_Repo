@@ -91,13 +91,13 @@ class QrGenerator:
         self.wrn_msg.place(x=0, y=320, relwidth=1)
 
         # ========QR Code Window========
-        qr_Frame = Frame(self.root, bd=4, relief=RIDGE, bg='white')
-        qr_Frame.place(x=600, y=100, width=250, height=365)
+        qr_frame = Frame(self.root, bd=4, relief=RIDGE, bg='white')
+        qr_frame.place(x=600, y=100, width=250, height=365)
 
-        qr_title = Label(qr_Frame, text='QR Code', font=('goudy old style', 20), bg='#043256', fg='white')
+        qr_title = Label(qr_frame, text='QR Code', font=('goudy old style', 20), bg='#043256', fg='white')
         qr_title.place(x=0, y=0, relwidth=1)
 
-        self.qr_code = Label(qr_Frame, text='No QR Code\nAvailable', font=('times new roman', 15), bg='#3f51b5',
+        self.qr_code = Label(qr_frame, text='No QR Code\nAvailable', font=('times new roman', 15), bg='#3f51b5',
                              fg='white', bd=2, relief=RIDGE)
         self.qr_code.place(x=22, y=100, width=200, height=200)
 
