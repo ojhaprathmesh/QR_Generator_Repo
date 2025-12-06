@@ -12,12 +12,18 @@ class QrGenerator:
         self.root.title('QR Generator | Developed by Prathmesh')
         self.root.resizable(False, False)
 
-        # ======Coloring Title======
-        title = Label(self.root, bg='white')
-        title.place(x=0, y=0, width=900, height=600)
+        # ======Background======
+        title_bg = Label(self.root, bg='white')
+        title_bg.place(x=0, y=0, width=900, height=600)
 
         # ========Main Title========
-        title = Label(self.root, text="QR Generator", font=("times new roman", 40), bg='#053246', fg='white')
+        title = Label(
+            self.root,
+            text="QR Generator",
+            font=("times new roman", 40),
+            bg='#053246',
+            fg='white'
+        )
         title.place(x=0, y=0, relwidth=1)
 
         # ========Variables========
@@ -25,8 +31,7 @@ class QrGenerator:
         self.var_name = StringVar()
         self.var_age = StringVar()
         self.var_education = StringVar()
-        self.var_directory = StringVar()
-        self.var_directory.set(os.getcwd())
+        self.var_directory = StringVar(value=os.getcwd())
         self.wrn_msg = None
         self.msg = None
         self.img = None
@@ -35,113 +40,155 @@ class QrGenerator:
         emp_frame = Frame(self.root, bd=4, relief=RIDGE, bg='white')
         emp_frame.place(x=50, y=100, width=500, height=365)
 
-        emp_title = Label(emp_frame, text='Personal Details', font=('goudy old style', 20), bg='#043256',
-                          fg='white')
+        emp_title = Label(
+            emp_frame,
+            text='Personal Details',
+            font=('goudy old style', 20),
+            bg='#043256',
+            fg='white'
+        )
         emp_title.place(x=0, y=0, relwidth=1)
 
         # ====Labels====
-        lbl_phone_no = Label(emp_frame, text='Phone Number :-', font=('times new roman', 15, 'bold'), bg='white',
-                             anchor='w')
-        lbl_phone_no.place(x=20, y=60)
-
-        lbl_name = Label(emp_frame, text='Name :-', font=('times new roman', 15, 'bold'), bg='white', anchor='w')
-        lbl_name.place(x=20, y=100)
-
-        lbl_age = Label(emp_frame, text='Age :-', font=('times new roman', 15, 'bold'), bg='white', anchor='w')
-        lbl_age.place(x=20, y=140)
-
-        lbl_education = Label(emp_frame, text='Education :-', font=('times new roman', 15, 'bold'), bg='white',
-                              anchor='w')
-        lbl_education.place(x=20, y=180)
-
-        lbl_directory = Label(emp_frame, text='Save Location :-', font=('times new roman', 15, 'bold'), bg='white',
-                              anchor='w')
-        lbl_directory.place(x=20, y=280)
+        self.create_label(emp_frame, 'Name :-', 20, 60)
+        self.create_label(emp_frame, 'Phone Number :-', 20, 100)
+        self.create_label(emp_frame, 'Age :-', 20, 140)
+        self.create_label(emp_frame, 'Education :-', 20, 180)
+        self.create_label(emp_frame, 'Save Location :-', 20, 280)
 
         # ====Entries====
-        txt_phone_no = Entry(emp_frame, font=('times new roman', 16, 'bold'), textvariable=self.var_phone_no,
-                             bg='white')
-        txt_phone_no.place(x=200, y=60)
-
-        txt_name = Entry(emp_frame, font=('times new roman', 16, 'bold'), textvariable=self.var_name, bg='white')
-        txt_name.place(x=200, y=100)
-
-        txt_age = Entry(emp_frame, font=('times new roman', 16, 'bold'), textvariable=self.var_age, bg='white')
-        txt_age.place(x=200, y=140)
-
-        txt_education = Entry(emp_frame, font=('times new roman', 16, 'bold'), textvariable=self.var_education,
-                              bg='white')
-        txt_education.place(x=200, y=180)
-
-        txt_directory = Entry(emp_frame, font=('times new roman', 16, 'bold'), textvariable=self.var_directory,
-                              bg='white')
-        txt_directory.place(x=200, y=280)
+        self.create_entry(emp_frame, self.var_phone_no, 200, 60)
+        self.create_entry(emp_frame, self.var_name, 200, 100)
+        self.create_entry(emp_frame, self.var_age, 200, 140)
+        self.create_entry(emp_frame, self.var_education, 200, 180)
+        self.create_entry(emp_frame, self.var_directory, 200, 280)
 
         # ====Buttons====
-        btn_generate = Button(emp_frame, text='Generate', command=self.generate, font=('times new roman', 20, 'bold'),
-                              bg='#2196f3', fg='black')
+        btn_generate = Button(
+            emp_frame,
+            text='Generate',
+            command=self.generate,
+            font=('times new roman', 20, 'bold'),
+            bg='#2196f3',
+            fg='black'
+        )
         btn_generate.place(x=90, y=220, width=150, height=30)
 
-        btn_clear = Button(emp_frame, text='Clear', command=self.clear, font=('times new roman', 20, 'bold'),
-                           bg='#2196f3', fg='black')
+        btn_clear = Button(
+            emp_frame,
+            text='Clear',
+            command=self.clear,
+            font=('times new roman', 20, 'bold'),
+            bg='#2196f3',
+            fg='black'
+        )
         btn_clear.place(x=254, y=220, width=150, height=30)
 
+        # ====Message Label====
         self.msg = ''
-        self.wrn_msg = Label(emp_frame, text=self.msg, font=('times new roman', 15, 'bold'), bg='white', fg='green')
+        self.wrn_msg = Label(
+            emp_frame,
+            text=self.msg,
+            font=('times new roman', 15, 'bold'),
+            bg='white',
+            fg='green'
+        )
         self.wrn_msg.place(x=0, y=320, relwidth=1)
 
         # ========QR Code Window========
         qr_frame = Frame(self.root, bd=4, relief=RIDGE, bg='white')
         qr_frame.place(x=600, y=100, width=250, height=365)
 
-        qr_title = Label(qr_frame, text='QR Code', font=('goudy old style', 20), bg='#043256', fg='white')
+        qr_title = Label(
+            qr_frame,
+            text='QR Code',
+            font=('goudy old style', 20),
+            bg='#043256',
+            fg='white'
+        )
         qr_title.place(x=0, y=0, relwidth=1)
 
-        self.qr_code = Label(qr_frame, text='No QR Code\nAvailable', font=('times new roman', 15), bg='#3f51b5',
-                             fg='white', bd=2, relief=RIDGE)
+        self.qr_code = Label(
+            qr_frame,
+            text='No QR Code\nAvailable',
+            font=('times new roman', 15),
+            bg='#3f51b5',
+            fg='white',
+            bd=2,
+            relief=RIDGE
+        )
         self.qr_code.place(x=22, y=100, width=200, height=200)
 
+    # ================== HELPERS ==================
+
+    def create_label(self, parent, text, x, y,
+                     font=('times new roman', 15, 'bold'),
+                     bg='white', anchor='w'):
+        """Create a Label and place it, to avoid repeating config code."""
+        label = Label(parent, text=text, font=font, bg=bg, anchor=anchor)
+        label.place(x=x, y=y)
+        return label
+
+    def create_entry(self, parent, textvariable, x, y,
+                     font=('times new roman', 16, 'bold'),
+                     bg='white'):
+        """Create an Entry and place it, to avoid repeating config code."""
+        entry = Entry(parent, font=font, textvariable=textvariable, bg=bg)
+        entry.place(x=x, y=y)
+        return entry
+
+    def show_message(self, text, color='green'):
+        """Centralized way to update the status message."""
+        self.msg = text
+        self.wrn_msg.config(text=self.msg, fg=color)
+
+    # ================== CORE LOGIC ==================
+
     def generate(self):
-        if self.var_phone_no.get() == '' or self.var_name.get() == '':
-            self.msg = 'All Fields Are Required!'
-            self.wrn_msg.config(text=self.msg, fg='red')
+        # Trimmed values for safer validation
+        phone = self.var_phone_no.get().strip()
+        name = self.var_name.get().strip()
+        age = self.var_age.get().strip()
+        edu = self.var_education.get().strip()
+        directory = self.var_directory.get().strip()
 
-        elif self.var_age.get() == '' or self.var_education.get() == '':
-            self.msg = 'All Fields Are Required!'
-            self.wrn_msg.config(text=self.msg, fg='red')
+        # ---- Basic validation ----
+        if not (phone and name and age and edu):
+            self.show_message('All Fields Are Required!', 'red')
+            return
 
-        elif self.var_directory.get() == '':
-            self.var_directory.set(os.getcwd())
+        # ---- Directory validation ----
+        if not directory:
+            directory = os.getcwd()
+            self.var_directory.set(directory)
 
-        elif not os.path.exists(self.var_directory.get()):
-            self.msg = 'Location Not Found'
-            self.wrn_msg.config(text=self.msg, fg='red')
+        if not os.path.exists(directory):
+            self.show_message('Location Not Found', 'red')
+            return
 
-        else:
-            # ====Required Directory Change====
-            if self.var_directory.get() != os.getcwd():
-                os.chdir(self.var_directory.get())
+        # ---- Ensure QR Codes folder exists ----
+        qr_dir = os.path.join(directory, 'QR Codes')
+        os.makedirs(qr_dir, exist_ok=True)
 
-            if not os.path.exists('QR Codes'):
-                os.mkdir(os.path.join(os.getcwd(), 'QR Codes'))
+        # ---- QR Creation ----
+        qr_data = (
+            f"Name :- {name}\n"
+            f"Phone No :- {phone}\n"
+            f"Age :- {age}\n"
+            f"Education :- {edu}"
+        )
+        qr_code = qrcode.make(qr_data)
 
-            # ====QR Creation And Update====
-            qr_data = f"""
-            Phone No :- {self.var_phone_no.get()}
-            Name :- {self.var_name.get()}
-            Age :- {self.var_age.get()}
-            Education :- {self.var_education.get()}"""
-            qr_code = qrcode.make(qr_data)
+        img_path = os.path.join(qr_dir, f"Phone_No_{phone}.png")
+        qr_code.save(img_path)
 
-            qr_code.save(f"QR Codes/Phone_No_{self.var_phone_no.get()}.png")
+        # Resize for display
+        qr_code = resizeimage.resize_cover(qr_code, [200, 200])
+        self.img = ImageTk.PhotoImage(qr_code)
+        self.qr_code.config(image=self.img)
 
-            qr_code = resizeimage.resize_cover(qr_code, [200, 200])
-            self.img = ImageTk.PhotoImage(qr_code)
-            self.qr_code.config(image=self.img)
-
-            # ====Update Notification====
-            self.msg = 'QR Code Generated Successfully'
-            self.wrn_msg.config(text=self.msg, fg='green')
+        # ---- Success message ----
+        self.show_message('QR Code Generated Successfully', 'green')
 
     def clear(self):
         self.var_phone_no.set('')
@@ -153,6 +200,7 @@ class QrGenerator:
         self.qr_code.config(image='')
 
 
-root = Tk()
-obj = QrGenerator(root)
-root.mainloop()
+if __name__ == "__main__":
+    root = Tk()
+    app = QrGenerator(root)
+    root.mainloop()

@@ -4,30 +4,93 @@
 This repository contains a Python script for generating QR codes with personal details. The application is developed using the Tkinter library for the graphical user interface, qrcode library for generating QR codes, and Pillow (PIL) library for image processing.
 
 ## Features
-- User-friendly graphical interface for entering personal details.
-- Generates QR codes containing phone number, name, age, and education information.
-- Allows users to specify the save location for generated QR codes.
-- Validates input fields and provides error messages for missing or incorrect information.
+- User-friendly graphical interface for entering personal details
+- Generates QR codes containing phone number, name, age, and education information
+- Allows users to specify the save location for generated QR codes
+- Validates input fields and provides error messages for missing or incorrect information
+- Displays generated QR code in the application window
+- Automatically creates a "QR Codes" folder in the specified directory
 
-## Dependencies
+## Prerequisites
 - Python 3.x
-- Tkinter
-- qrcode
-- Pillow (PIL)
-- resizeimage
+- pip (Python package installer)
+
+## Installation
+
+### Step 1: Clone the Repository
+```bash
+git clone https://github.com/ojhaprathmesh/QR_Generator_Repo.git
+cd QR_Generator_Repo
+```
+
+### Step 2: Create Virtual Environment (Recommended)
+```bash
+python -m venv .venv --upgrade-deps
+```
+
+### Step 3: Activate Virtual Environment
+**For Windows (PowerShell):**
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+**For Windows (Command Prompt):**
+```cmd
+.venv\Scripts\activate.bat
+```
+
+**For Linux/Mac:**
+```bash
+source .venv/bin/activate
+```
+
+### Step 4: Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
 ## How to Use
-1. Clone the repository to your local machine.
-2. Install the required dependencies using the following command:
-   
-    ```
-    pip install -r requirements.txt
-    ```
-4. Run the script `qr_generator.py` to launch the application.
-5. Enter the required personal details in the provided fields.
-6. Specify the save location for the generated QR codes.
-7. Click the "Generate" button to create the QR code.
-8. The generated QR code will be displayed on the interface, and a success message will be shown.
+1. Ensure you have activated your virtual environment (if using one)
+2. Run the script `qr_generator.py` to launch the application:
+   ```bash
+   python qr_generator.py
+   ```
+3. Enter the required personal details in the provided fields:
+   - Phone Number (required)
+   - Name (required)
+   - Age (required)
+   - Education (required)
+4. Specify the save location for the generated QR codes (defaults to current directory)
+5. Click the "Generate" button to create the QR code
+6. The generated QR code will be displayed on the interface, and a success message will be shown
+7. The QR code image will be saved in a "QR Codes" folder at the specified location with the filename format: `Phone_No_{phone_number}.png`
+8. Use the "Clear" button to reset all fields and start over
+
+## Project Structure
+```
+QR_Generator_Repo/
+├── qr_generator.py       # Main application file
+├── setup_qr_generator.py # Setup script for creating executable
+├── requirements.txt      # Python dependencies
+├── README.md             # Project documentation
+└── LICENSE               # MIT License
+```
+
+## Dependencies
+The project requires the following Python packages (listed in `requirements.txt`):
+- **qrcode** (7.4.2) - QR code generation
+- **Pillow** (10.0.0) - Image processing
+- **python-resize-image** (1.1.20) - Image resizing
+- **resize-image** (0.4.0) - Additional image resizing functionality
+- **cx-Freeze** (6.15.7) - For creating standalone executables
+- Additional dependencies: certifi, charset-normalizer, colorama, idna, pypng, requests, typing_extensions, urllib3
+
+## Building an Executable
+To create a standalone executable for Windows, use the provided setup script:
+```bash
+python setup_qr_generator.py build
+```
+This will create an executable in the `build` directory that can be run without Python installed.
 
 ## Call for Contributions:
 - **Enhanced UI/UX:**
