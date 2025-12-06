@@ -1,15 +1,18 @@
 # QR Code Generator
 
 ## Introduction
-This repository contains a Python script for generating QR codes with personal details. The application is developed using the Tkinter library for the graphical user interface, qrcode library for generating QR codes, and Pillow (PIL) library for image processing.
+This repository contains a modern Python application for generating QR codes with personal details. The application features a clean, contemporary user interface built with Tkinter, and uses the qrcode library for QR code generation with Pillow (PIL) for image processing. The UI follows modern design principles with a light color palette, improved spacing, and intuitive user experience.
 
 ## Features
-- User-friendly graphical interface for entering personal details
-- Generates QR codes containing phone number, name, age, and education information
-- Allows users to specify the save location for generated QR codes
-- Validates input fields and provides error messages for missing or incorrect information
-- Displays generated QR code in the application window
-- Automatically creates a "QR Codes" folder in the specified directory
+- **Modern, Clean UI**: Contemporary design with light color scheme, improved typography (Segoe UI), and better visual hierarchy
+- **Smart Name Autofill**: Automatically fills the name field from your Git configuration (user.name or derived from user.email)
+- **Directory Browser**: Browse button to easily select save location using file explorer dialog
+- **Real-time QR Preview**: Displays generated QR code instantly in the application window
+- **Input Validation**: Comprehensive validation with trimmed inputs and clear error messages
+- **Auto-folder Creation**: Automatically creates a `qr_codes` folder in the specified directory
+- **Status Messages**: Temporary status messages that auto-clear after successful operations
+- **Personal Details QR**: Generates QR codes containing phone number, name, age, and education information
+- **Clear Functionality**: One-click clear button to reset all fields and start fresh
 
 ## Prerequisites
 - Python 3.x
@@ -55,16 +58,22 @@ pip install -r requirements.txt
    ```bash
    python qr_generator.py
    ```
-3. Enter the required personal details in the provided fields:
-   - Phone Number (required)
-   - Name (required)
-   - Age (required)
-   - Education (required)
-4. Specify the save location for the generated QR codes (defaults to current directory)
-5. Click the "Generate" button to create the QR code
-6. The generated QR code will be displayed on the interface, and a success message will be shown
-7. The QR code image will be saved in a "QR Codes" folder at the specified location with the filename format: `Phone_No_{phone_number}.png`
-8. Use the "Clear" button to reset all fields and start over
+3. The application window will open with a modern, clean interface
+4. **Name Field**: May be auto-filled from your Git configuration. You can edit it if needed
+5. Enter the required personal details in the provided fields:
+   - **Name** (required) - Auto-filled from Git if available
+   - **Phone Number** (required)
+   - **Age** (required)
+   - **Education** (required)
+6. **Save Location**: 
+   - Defaults to current working directory
+   - Click the "Browse" button to select a different folder using the file explorer
+   - Or manually type the path in the save location field
+7. Click the **"Generate"** button to create the QR code
+8. The generated QR code will be displayed instantly in the preview panel on the right
+9. A success message will appear briefly and then return to the default hint
+10. The QR code image will be saved in a `qr_codes` folder at the specified location with the filename format: `Phone_No_{phone_number}.png`
+11. Use the **"Clear"** button to reset all fields and start over
 
 ## Project Structure
 ```
@@ -78,39 +87,93 @@ QR_Generator_Repo/
 
 ## Dependencies
 The project requires the following Python packages (listed in `requirements.txt`):
-- **qrcode** (7.4.2) - QR code generation
-- **Pillow** (10.0.0) - Image processing
-- **python-resize-image** (1.1.20) - Image resizing
-- **resize-image** (0.4.0) - Additional image resizing functionality
-- **cx-Freeze** (6.15.7) - For creating standalone executables
-- Additional dependencies: certifi, charset-normalizer, colorama, idna, pypng, requests, typing_extensions, urllib3
+- **qrcode** (8.2) - QR code generation library
+- **Pillow** (12.0.0) - Image processing and manipulation
+- **python-resize-image** (1.1.20) - Image resizing functionality
+- **resize-image** (0.4.0) - Additional image resizing utilities
+- **cx-Freeze** (8.5.0) - For creating standalone Windows executables
+- **Additional dependencies**: cabarchive, certifi, charset-normalizer, colorama, filelock, freeze-core, idna, lief, packaging, requests, setuptools, striprtf, urllib3
+
+> **Note**: Tkinter is included with Python by default on most installations. If it's not available, install it through your system's package manager.
 
 ## Building an Executable
-To create a standalone executable for Windows, use the provided setup script:
+To create a standalone executable for Windows, you have two options:
+
+### Option 1: Standard Build (with filtered warnings)
+```bash
+python build_exe.py
+```
+This uses a wrapper script that filters out expected warnings for cleaner output.
+
+### Option 2: Direct Build
 ```bash
 python setup_qr_generator.py build
 ```
-This will create an executable in the `build` directory that can be run without Python installed.
+This will create an executable in the `build` directory that can be run without Python installed. The executable will include all necessary dependencies and can be distributed independently.
 
-## Call for Contributions:
-- **Enhanced UI/UX:**
-  - Contributors are encouraged to revamp the user interface to make it more visually appealing and user-friendly. This could involve:
-    - Implementing modern design principles such as Material Design or Fluent Design.
-    - Adding graphical elements, icons, and animations to enhance the overall look and feel.
-    - Improving the layout and organization of elements for better usability.
+**About Build Warnings:**
+- You will see warnings about "Missing modules" during the build process - **these are normal and expected**
+- The setup script is configured to exclude unnecessary optional modules (like OpenSSL, cryptography, HTTP/2 support, compression libraries, etc.) that aren't needed for QR code generation
+- These exclusions help reduce the executable size significantly
+- Warnings about Windows DLLs (api-ms-win-crt-*.dll) are also normal - these are provided by the Visual C++ Redistributable, which is pre-installed on most Windows systems
+- The application will work perfectly despite these warnings, as they only refer to optional dependencies
+
+**Note**: The setup script uses `cx_Freeze` and is configured for Windows. For other platforms, you may need to adjust the setup configuration.
+
+## Technical Details
+- **UI Framework**: Tkinter with modern styling
+- **QR Code Format**: Standard QR code format readable by any QR scanner
+- **Image Format**: PNG format for generated QR codes
+- **Folder Structure**: QR codes are saved in a `qr_codes` subdirectory
+- **Git Integration**: Automatically retrieves user name from Git global configuration
+- **Window Size**: Fixed at 900x500 pixels for consistent layout
+- **Color Scheme**: Light, modern palette with proper contrast for accessibility
+
+## Call for Contributions
+Contributions are welcome! Here are some areas where you can help:
+
 - **Additional Features:**
-  - Contributions to add new features to the QR code generator are welcomed. Some potential ideas include:
-    - Batch QR code generation to process multiple sets of personal details at once.
-    - Integration with cloud storage services to automatically upload generated QR codes.
-    - Support for different QR code formats and customization options such as color and logo embedding.
-- **Input Validation and Error Handling:**
-  - Contributions aimed at enhancing input validation and error handling mechanisms are valuable. This includes:
-    - Implementing robust input validation to ensure data integrity.
-    - Improving error handling to provide more informative and user-friendly error messages.
-    - Adding exception handling to handle unexpected scenarios gracefully.
+  - Batch QR code generation to process multiple sets of personal details at once
+  - Integration with cloud storage services to automatically upload generated QR codes
+  - Support for different QR code formats and customization options (colors, logos, error correction levels)
+  - Export functionality (PDF, CSV of generated QR codes)
+  - QR code scanning/reading functionality
+  - History/log of generated QR codes
+
+- **Code Improvements:**
+  - Enhanced input validation (phone number format, age range, etc.)
+  - Better error handling with more informative messages
+  - Unit tests and test coverage
+  - Code documentation and type hints
+  - Performance optimizations
+
+- **Platform Support:**
+  - macOS and Linux executable builds
+  - Cross-platform compatibility improvements
+  - Installation scripts for different platforms
 
 ## Notes
-- Make sure to provide valid and complete information in the input fields to generate QR codes successfully.
-- The default save location is the current working directory, but users can change it as needed.
+- All fields (Name, Phone Number, Age, Education) are required to generate a QR code
+- The name field will be auto-filled from your Git configuration if available (checks `git config --global user.name` or derives from `user.email`)
+- Input values are automatically trimmed of whitespace
+- The default save location is the current working directory, but you can change it using the Browse button or by typing a path
+- QR codes are saved in a `qr_codes` folder (lowercase) within the specified directory
+- The application creates the `qr_codes` folder automatically if it doesn't exist
+- Generated QR codes can be scanned by any standard QR code reader app
+- The QR code contains formatted text with all personal details
+
+## Troubleshooting
+- **Tkinter not found**: Install Python with Tkinter support, or install `python3-tk` on Linux
+- **Permission errors**: Ensure you have write permissions to the selected save directory
+- **Git name not auto-filling**: This is optional; you can manually enter your name
+- **QR code not displaying**: Check that all required fields are filled and the directory path is valid
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Author
+Developed by Prathmesh
+
+---
 
 Feel free to contribute, report issues, or suggest improvements. Thank you for using the QR Code Generator!
